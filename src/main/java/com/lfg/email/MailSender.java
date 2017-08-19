@@ -17,17 +17,16 @@ public class MailSender {
 
     private String filePath;
 
-    @Value("${from}")
+    @Value("${fileCollector.from}")
     private String userName;
 
-    @Value("${pwd}")
+    @Value("${fileCollector.pwd}")
     private String pwd;
 
-    @Value("${to}")
+    @Value("${fileCollector.to}")
     private String to;
 
     public void send() {
-        //MailInfo mailInfo = new MailInfo("645765227@qq.com","ibgwanmavpzrbbai");
         System.out.println("===="+userName);
         MailInfo mailInfo = new MailInfo(userName,pwd);
         mailInfo.setNotifyTo(to);

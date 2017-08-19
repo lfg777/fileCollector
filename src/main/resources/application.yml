@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: fileCollector
+fileCollector:
+  from: 645765227@qq.com
+  to: 645765227@qq.com
+  pwd: ibgwanmavpzrbbai
