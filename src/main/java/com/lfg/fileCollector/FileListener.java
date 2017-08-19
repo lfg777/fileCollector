@@ -83,6 +83,7 @@ public class FileListener implements Runnable {
     private void doSendEmail(String fileAbsPath, String fileName) {
         System.out.println("========file changed========");
         MailSender mailSender = new MailSender(fileAbsPath+File.separator+fileName);
+        mailSender.send();
     }
 
 }

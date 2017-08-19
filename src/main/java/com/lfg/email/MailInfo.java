@@ -23,7 +23,7 @@ public class MailInfo {
     /** 发送邮件的服务器的IP */
     private String mailHost;
     /** 发送邮件的服务器的端口 */
-    private String mailPort = "465";
+    private String mailPort = "25";
     /** 发送邮件的用户名（邮箱全名称） */
     private String username;
     /** 发送邮件的密码 */
@@ -53,11 +53,15 @@ public class MailInfo {
         props.put("mail.smtp.host", getMailHost());
         props.put("mail.smtp.port", getMailPort());
         props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.ssl.enable", "true");
-        props.put("mail.transport.protocol", "smtp");
+        //props.put("mail.smtp.starttls.enable", "true");
+        //props.put("mail.transport.protocol", "smtp");
         props.put("mail.user", getUsername());
         props.put("mail.password", getPassword());
+        // 开启SSL加密，否则会失败
+//        MailSSLSocketFactory sf = new MailSSLSocketFactory();
+//        sf.setTrustAllHosts(true);
+//        props.put("mail.smtp.ssl.enable", "true");
+//        props.put("mail.smtp.ssl.socketFactory", sf);
         return props;
     }
 
@@ -69,10 +73,10 @@ public class MailInfo {
             session.setDebug(true);
             MimeMessage message = new MimeMessage(session);
             message.setSubject(subject);
-            message.setFrom(new InternetAddress("lifengguang@ppdai.com"));
+            message.setFrom(new InternetAddress(username));
             // 指明邮件的收件人
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(notifyTo, ""));
-// 向multipart对象中添加邮件的各个部分内容，包括文本内容和附件
+            // 向multipart对象中添加邮件的各个部分内容，包括文本内容和附件
             Multipart multipart = new MimeMultipart();
 
             // 添加邮件正文
