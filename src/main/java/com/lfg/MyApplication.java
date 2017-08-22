@@ -12,7 +12,7 @@ public class MyApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(MyApplication.class,args);
-        FileHamal fileHamal = new FileHamal();
+        FileHamal fileHamal = new FileHamal(args);
         fileHamal.run();
     }
 }

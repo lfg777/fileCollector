@@ -13,11 +13,14 @@ import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
  */
 public class FileListener implements Runnable {
 
-    public FileListener(String filePath) {
+    public FileListener(String filePath,String[] args) {
         this.filePath = filePath;
+        this.args = args;
     }
     
     private String filePath;
+
+    private String[] args;
 
     @Override
     public void run() {
@@ -82,8 +85,15 @@ public class FileListener implements Runnable {
 
     private void doSendEmail(String fileAbsPath, String fileName) {
         System.out.println("========file changed========");
-        MailSender mailSender = new MailSender(fileAbsPath+File.separator+fileName);
+        MailSender mailSender = loadMailSender(fileAbsPath + File.separator + fileName, args);
         mailSender.send();
     }
+
+    private MailSender loadMailSender(String filePath,String[] args) {
+        MailSender mailSender = new MailSender(filePath);
+        mailSender.setParams(args);
+        return mailSender;
+    }
+
 
 }

@@ -1,6 +1,5 @@
 package com.lfg.fileCollector;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 
 /**
@@ -8,10 +7,15 @@ import org.springframework.util.StringUtils;
  */
 public class FileHamal {
 
+    public FileHamal(String[] args) {
+        this.args = args;
+    }
+
     private final String defaultFilePath = "/AppData/Local/Google/Chrome/User Data/Default/Bookmarks";
 
-    @Value("filePath")
     private String filePath;
+
+    private String[] args;
 
     public void run() {
         if (StringUtils.isEmpty(filePath)) {
@@ -20,8 +24,9 @@ public class FileHamal {
             System.out.println(filePath);
         }
 
-        FileListener fileListener = new FileListener(filePath);
+        FileListener fileListener = new FileListener(filePath,args);
         new Thread(fileListener).start();
 
     }
+
 }
