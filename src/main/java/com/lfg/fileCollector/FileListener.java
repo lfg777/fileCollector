@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 
-import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
+import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
 
 /**
  * Created by lifengguang on 2017/8/16.
@@ -46,7 +46,7 @@ public class FileListener implements Runnable {
         try {
             WatchService ws = FileSystems.getDefault().newWatchService();
             Path path = Paths.get(fileAbsPath);
-            path.register(ws,ENTRY_MODIFY);
+            path.register(ws,ENTRY_CREATE);
             Runtime.getRuntime().addShutdownHook(new Thread(()->{
                 try {
                     ws.close();
